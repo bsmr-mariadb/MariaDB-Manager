@@ -31,6 +31,7 @@ Metapackage to install SkySQL рackages
 
 %post
 %{install_path}skysql_aws/admin_schema
+%{install_path}skysql_aws/admin_schema.Galera
 %{install_path}CreateSystem.sh
 
 %install
