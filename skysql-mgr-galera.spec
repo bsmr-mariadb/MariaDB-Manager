@@ -44,5 +44,6 @@ cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
 
 %files
 %defattr(-,root,root)
+%{install_path}CreateSystem.sh
 
 %changelog
