@@ -30,6 +30,7 @@ Metapackage to install SkySQL рackages
 %post
 %{install_path}skysql_aws/admin_schema
 %{install_path}skysql_aws/admin_schema.Galera
+chown -R apache:apache %{install_path}SQLite
 
 %install
 
