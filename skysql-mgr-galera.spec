@@ -14,10 +14,8 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		admin_ui sqlite MariaDB-client MariaDB-server MariaDB-compat MariaDB-shared admin_schema admin_php
+Requires:		skysql-manager sqlite admin_schema admin_php
 
-# glusterfs is installed by glusterfs-server
-# httpd is installed by php
 #BuildRequires:		
 
 %description
@@ -36,8 +34,10 @@ Metapackage to install SkySQL рackages
 %install
 
 mkdir -p $RPM_BUILD_ROOT%{install_path}
+mkdir $RPM_BUILD_ROOT%{install_path}config
+$RPM_BUILD_ROOT%{install_path}
 cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
-
+cp manager.json  $RPM_BUILD_ROOT%{install_path}config
 
 %clean
 
@@ -45,5 +45,6 @@ cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
 %files
 %defattr(-,root,root)
 %{install_path}CreateSystem.sh
+%{install_path}config/manager.json
 
 %changelog
