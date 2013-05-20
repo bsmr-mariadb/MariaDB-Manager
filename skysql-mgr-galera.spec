@@ -35,9 +35,8 @@ Metapackage to install SkySQL рackages
 
 mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir $RPM_BUILD_ROOT%{install_path}config
-$RPM_BUILD_ROOT%{install_path}
 cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
-cp manager.json  $RPM_BUILD_ROOT%{install_path}config
+cp manager.json $RPM_BUILD_ROOT%{install_path}config
 
 %clean
 
