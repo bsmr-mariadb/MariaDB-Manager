@@ -14,7 +14,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		httpd24 admin_ui sqlite php54-pdo phpMyAdmin MariaDB-client MariaDB-server MariaDB-compat MariaDB-shared admin_schema admin_php pcs
+Requires:		admin_ui sqlite MariaDB-client MariaDB-server MariaDB-compat MariaDB-shared admin_schema admin_php
 
 # glusterfs is installed by glusterfs-server
 # httpd is installed by php
