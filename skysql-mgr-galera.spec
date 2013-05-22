@@ -37,8 +37,8 @@ chown -R apache:apache %{install_path}SQLite
 mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir $RPM_BUILD_ROOT%{install_path}config
 cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
-cp manager.json $RPM_BUILD_ROOT%{install_path}config
-cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws
+cp manager.json $RPM_BUILD_ROOT%{install_path}config/
+cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
 %clean
 
