@@ -14,12 +14,12 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		skysql-manager sqlite admin_schema admin_php php-pdo
+Requires:		skysql-manager sqlite admin_schema admin_php php-pdo php-process
 
 #BuildRequires:		
 
 %description
-Metapackage to install SkySQL рackages
+Metapackage to install SkySQL рackages for MariaDB+Galera
 
 %prep
 
@@ -38,6 +38,7 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir $RPM_BUILD_ROOT%{install_path}config
 cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
 cp manager.json $RPM_BUILD_ROOT%{install_path}config
+cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws
 
 %clean
 
@@ -46,5 +47,7 @@ cp manager.json $RPM_BUILD_ROOT%{install_path}config
 %defattr(-,root,root)
 %{install_path}CreateSystem.sh
 %{install_path}config/manager.json
+%{install_path}skysql_aws/skysql.config
+
 
 %changelog
