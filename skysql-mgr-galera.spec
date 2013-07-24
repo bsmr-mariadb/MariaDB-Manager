@@ -1,11 +1,11 @@
 %define _topdir	 	%(echo $PWD)/
 %define name		skysql-mgr-galera
-%define release		1
-%define version 	0.1
-%define buildroot %{_topdir}/%{name}-%{version}-%{release}root
+%define release		##RELEASE_TAG##
+%define version 	##VERSION_TAG##
+%define buildroot 	%{_topdir}/%{name}-%{version}-%{release}root
 %define install_path	/usr/local/skysql/
 
-BuildRoot:	%{buildroot}
+BuildRoot:		%{buildroot}
 Summary: 		SkySQL Cloud Data Suite
 License: 		GPL
 Name: 			%{name}
@@ -14,7 +14,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		skysql-manager sqlite admin_schema admin_php php-pdo php-process skysql_monitor
+Requires:		skysql-manager sqlite admin_schema admin_php skysql_monitor
 
 #BuildRequires:		
 
@@ -28,9 +28,11 @@ Metapackage to install SkySQL рackages for MariaDB+Galera
 %build
 
 %post
-%{install_path}skysql_aws/admin_schema
-%{install_path}skysql_aws/admin_schema.Galera
-chown -R apache:apache %{install_path}SQLite
+if [ ! -f %{install_path}SQLite/AdminConsole/admin ]; then
+	%{install_path}skysql_aws/admin_schema
+	%{install_path}skysql_aws/admin_schema.Galera
+	chown -R apache:apache %{install_path}SQLite
+fi
 
 %install
 
