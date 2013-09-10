@@ -14,7 +14,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		skysql-manager sqlite admin_schema admin_php skysql_monitor
+Requires:		skysql-manager sqlite admin_php skysql_monitor
 
 #BuildRequires:		
 
