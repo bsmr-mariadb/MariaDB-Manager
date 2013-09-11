@@ -28,11 +28,8 @@ Metapackage to install SkySQL рackages for MariaDB+Galera
 %build
 
 %post
-#if [ ! -f %{install_path}SQLite/AdminConsole/admin ]; then
-#	%{install_path}skysql_aws/admin_schema
-#	%{install_path}skysql_aws/admin_schema.Galera
-	chown -R apache:apache %{install_path}SQLite
-#fi
+mkdir -p /usr/local/skysql/SQLite/AdminConsole
+chown -R apache:apache %{install_path}SQLite
 
 %install
 
