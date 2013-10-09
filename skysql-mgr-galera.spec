@@ -6,6 +6,7 @@
 %define install_path	/usr/local/skysql/
 
 BuildRoot:		%{buildroot}
+BuildArch:              noarch
 Summary: 		SkySQL Cloud Data Suite
 License: 		GPL
 Name: 			%{name}
@@ -37,7 +38,6 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir $RPM_BUILD_ROOT%{install_path}config
 mkdir $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
-cp CreateSystem.sh $RPM_BUILD_ROOT%{install_path}
 cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
@@ -46,7 +46,6 @@ cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
 %files
 %defattr(-,root,root)
-%{install_path}CreateSystem.sh
 %{install_path}config/manager.json
 %{install_path}skysql_aws/skysql.config
 
