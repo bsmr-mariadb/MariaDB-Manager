@@ -15,7 +15,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 7.0.39-1
+Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 = 7.0.39-1
 #BuildRequires:		
 
 %description
