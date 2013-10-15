@@ -35,6 +35,7 @@ chkconfig --add tomcat7
 /etc/init.d/tomcat7 restart
 
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
+rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
 /etc/init.d/httpd restart
 
