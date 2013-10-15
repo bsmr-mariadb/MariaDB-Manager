@@ -15,7 +15,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 = 7.0.39-1
+Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 = 7.0.39-1 gawk grep
 #BuildRequires:		
 
 %description
@@ -34,6 +34,7 @@ chown -R apache:apache %{install_path}SQLite
 chkconfig --add tomcat7
 /etc/init.d/tomcat7 restart
 
+sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 chkconfig --add httpd
 /etc/init.d/httpd restart
 
