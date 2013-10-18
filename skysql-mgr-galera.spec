@@ -7,7 +7,7 @@
 
 BuildRoot:		%{buildroot}
 BuildArch:              noarch
-Summary: 		SkySQL Cloud Data Suite
+Summary: 		MariaDB Manager
 License: 		GPL
 Name: 			%{name}
 Version: 		%{version}
@@ -19,7 +19,8 @@ Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 = 7.0.39-1 gaw
 #BuildRequires:		
 
 %description
-Metapackage to install SkySQL рackages for MariaDB+Galera
+MariaDB Manager is a tool to manage and monitor a set of MariaDB
+servers using the Galera multi-master replication form Codership.
 
 %prep
 
