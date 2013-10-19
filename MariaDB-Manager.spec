@@ -1,5 +1,5 @@
 %define _topdir	 	%(echo $PWD)/
-%define name		skysql-mgr-galera
+%define name		MariaDB-Manager
 %define release		##RELEASE_TAG##
 %define version 	##VERSION_TAG##
 %define buildroot 	%{_topdir}/%{name}-%{version}-%{release}root
@@ -15,7 +15,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		MariaDBManager sqlite admin_php skysql_monitor tomcat7 = 7.0.39-1 gawk grep
+Requires:		MariaDB-Manager-WebUI sqlite MariaDB-Manager-API MariaDB-Manager-Monitor tomcat7 = 7.0.39-1 gawk grep
 #BuildRequires:		
 
 %description
