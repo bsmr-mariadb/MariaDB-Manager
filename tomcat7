@@ -16,11 +16,11 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-# Copyright 2013 (c) SkySQL Ab
+# Copyright 2013-2014 (c) SkySQL Ab
 #
 # Author      : Massimo Siani
-# Version     : 1.0
-# Date        : October 2013
+# Version     : 1.1
+# Date        : December 2013
 # Description : LSB script for Tomcat
 # Note        : Script location must be: /etc/init.d  - with execute permission
 # Returns     : 0 = OK - 1 = Warning
@@ -31,7 +31,7 @@
 vTomcatBinDir=/usr/local/tomcat7/bin
 
 fGetTomcatPid() {
-    vTomcatPid=`ps -efwwww | grep tomcat7 | egrep -v 'grep|/etc/init.d|/etc/rc' | awk '{print $2}'`
+    vTomcatPid=$(ps -efwwww | grep 'org.apache.catalina.startup.Bootstrap' | egrep -v 'grep|/etc/init.d|/etc/rc' | awk '{print $2}')
 } 
 
 case "$1" in
@@ -40,7 +40,7 @@ case "$1" in
     'start') 
         fGetTomcatPid           
                 
-        if [ "${vTomcatPid}" != "" ]; then
+        if [ "x${vTomcatPid}" != "x" ]; then
         
             echo "`date` - Warning: Tomcat is already running on `hostname`, process $vTomcatPid"
             vRetVal=1
@@ -57,7 +57,7 @@ case "$1" in
             sleep 1
             fGetTomcatPid
                     
-            if [ "${vTomcatPid}" != "" ]; then
+            if [ "x${vTomcatPid}" != "x" ]; then
             
                 vRetVal=0
             else
@@ -74,7 +74,7 @@ case "$1" in
     'stop')       
         fGetTomcatPid
                 
-        if [ "${vTomcatPid}" != "" ]; then
+        if [ "x${vTomcatPid}" != "x" ]; then
 
             echo "`date` - Stop: Tomcat is stopping "
                         
@@ -82,12 +82,12 @@ case "$1" in
 			$vTomcatBinDir/catalina.sh stop
             ###########################################################################################################
 
-            ### Check if the process is already running ###############################################################
-			sleep 1
+            ### Check if the process is still running #################################################################
+			sleep 3
             fGetTomcatPid
-            if [ "${vTomcatPid}" != "" ]; then
+            if [ "x${vTomcatPid}" != "x" ]; then
             
-                $vTomcatBinDir/catalina.sh stop
+                kill -9 $vTomcatPid
             fi                     
             ###########################################################################################################
             
@@ -110,7 +110,7 @@ case "$1" in
     'status')
         fGetTomcatPid
                 
-        if [ "${vTomcatPid}" != "" ]; then
+        if [ "x${vTomcatPid}" != "x" ]; then
             echo "`date` - Status: Tomcat is running on `hostname`, process $vTomcatPid"
             vRetVal=0
         else
