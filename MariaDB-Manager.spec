@@ -32,9 +32,6 @@ servers using the Galera multi-master replication form Codership.
 mkdir -p /usr/local/skysql/SQLite/AdminConsole
 chown -R apache:apache %{install_path}SQLite
 
-chkconfig --add tomcat7
-/etc/init.d/tomcat7 restart
-
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
@@ -49,17 +46,11 @@ mkdir $RPM_BUILD_ROOT%{install_path}skysql_aws/
 cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
-mkdir -p $RPM_BUILD_ROOT/etc/init.d/
-cp tomcat7 $RPM_BUILD_ROOT/etc/init.d/
-
 %clean
-
 
 %files
 %defattr(-,root,root)
 %{install_path}config/manager.json
 %{install_path}skysql_aws/skysql.config
-/etc/init.d/tomcat7
-
 
 %changelog
