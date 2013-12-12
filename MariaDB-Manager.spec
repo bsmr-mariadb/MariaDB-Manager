@@ -39,8 +39,8 @@ chkconfig --add httpd
 /etc/init.d/httpd restart
 
 # WebUI key for the API
-$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 2
-$RPM_BUILD_ROOT%{install_path}config/generateAPIkey_json.sh 2 %{install_path}
+$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 1
+$RPM_BUILD_ROOT%{install_path}config/generateAPIkey_json.sh 1 %{install_path}
 # Monitor key for the API
 $RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
