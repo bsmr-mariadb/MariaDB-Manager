@@ -38,17 +38,16 @@ rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
 /etc/init.d/httpd restart
 
-cp generateAPIkey*.sh /usr/local/skysql/config/
 # WebUI key for the API
-/usr/local/skysql/config/generateAPIkey.sh 2
-/usr/local/skysql/config/generateAPIkey_json.sh 2 %{install_path}
+$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 2
+$RPM_BUILD_ROOT%{install_path}config/generateAPIkey_json.sh 2 %{install_path}
 # Monitor key for the API
-/usr/local/skysql/config/generateAPIkey.sh 3
+$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
 /etc/init.d/mariadb-enterprise-monitor restart
 
 # Cleanup
-rm -f /usr/local/skysql/config/generateAPIkey*.sh
+rm -f $RPM_BUILD_ROOT%{install_path}config/generateAPIkey*.sh
 
 
 %install
@@ -59,6 +58,7 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
 cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
+cp generateAPIkey*.sh $RPM_BUILD_ROOT%{install_path}config/
 
 %clean
 
@@ -66,5 +66,6 @@ cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 %defattr(-,root,root)
 %{install_path}config/manager.json
 %{install_path}skysql_aws/skysql.config
+%{install_path}config/generateAPIkey*.sh
 
 %changelog
