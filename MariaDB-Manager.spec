@@ -57,7 +57,7 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir -p $RPM_BUILD_ROOT%{install_path}config
 mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
-cp manager.json $RPM_BUILD_ROOT%{install_path}config/manager.json.template
+cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
 %clean

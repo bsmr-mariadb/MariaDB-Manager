@@ -43,7 +43,6 @@ componentFile=/usr/local/skysql/config/components.ini
 uiKey=$(grep "^${componentID} = \"" ${componentFile} | cut -f3 -d" " | tr -d "\"")
 
 # Creating manager.json file
-sed -e "s/###ID###/$componentID/" \
+sed -i -e "s/###ID###/$componentID/" \
     -e "s/###CODE###/$uiKey/" \
-    ${install_path}config/manager.json.template \
-    > ${install_path}config/manager.json
+    ${install_path}config/manager.json
