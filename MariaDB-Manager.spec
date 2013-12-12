@@ -15,7 +15,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		MariaDB-Manager-WebUI sqlite MariaDB-Manager-API MariaDB-Manager-Monitor tomcat7 = 7.0.39-1 gawk grep
+Requires:		MariaDB-Manager-WebUI sqlite MariaDB-Manager-API MariaDB-Manager-Monitor tomcat7 = 7.0.39-1 gawk grep coreutils
 #BuildRequires:		
 
 %description
@@ -38,57 +38,18 @@ rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
 /etc/init.d/httpd restart
 
-# Not overwriting existing WebUI configurations
-if [ ! -f /usr/local/skysql/config/manager.json ] ; then
-	# Generating API key for WebUI
-	newKey=$(echo $RANDOM$(date)$RANDOM | md5sum | cut -f1 -d" ")
+cp generateAPIkey*.sh /usr/local/skysql/config/
+# WebUI key for the API
+/usr/local/skysql/config/generateAPIkey.sh 2
+/usr/local/skysql/config/generateAPIkey_json.sh 2
+# Monitor key for the API
+/usr/local/skysql/config/generateAPIkey.sh 3
+# Restart the Monitor so that it reads the new key
+/etc/init.d/mariadb-enterprise-monitor restart
 
-	componentID=2
-  keyString="${componentID} = \"${newKey}\""
+# Cleanup
+/usr/local/skysql/config/generateAPIkey.sh 3
 
-	# Registering key on components.ini
-	componentFile=/usr/local/skysql/config/components.ini
-	grep "^${componentID} = \"" ${componentFile} &>/dev/null
-	if [ "$?" != "0" ] ; then
-		echo $keyString >> $componentFile
-	fi
-
-	# Registering key on api.ini
-	grep "^${componentID} = \"" /etc/skysqlmgr/api.ini &>/dev/null
-	if [ "$?" != "0" ] ; then
-		sed -i "/^\[apikeys\]$/a $keyString" /etc/skysqlmgr/api.ini
-	fi
-	
-	# Creating manager.json file
-	sed -e "s/###ID###/$componentID/" \
-		-e "s/###CODE###/$newKey/" \
-		%{install_path}config/manager.json.template \
-		> %{install_path}config/manager.json
-fi
-
-# Not overwriting existing monitor key
-grep -q "^3 =" components.ini
-if [ $? -ne 0 ]; then
-	# Generating API key for Monitor
-	newKey=$(echo $RANDOM$(date)$RANDOM | md5sum | cut -f1 -d" ")
-
-	componentID=3
-
-	# Registering key on components.ini
-	componentFile=/usr/local/skysql/config/components.ini
-	keyString="${componentID} = \"${newKey}\""
-	grep "^${componentID} = \"" ${componentFile} &>/dev/null
-	if [ "$?" != "0" ] ; then
-		echo $keyString >> $componentFile
-	fi
-
-	# Registering key on api.ini
-	grep "^${componentID} = \"" /etc/skysqlmgr/api.ini &>/dev/null
-	if [ "$?" != "0" ] ; then
-		sed -i "/^\[apikeys\]$/a $keyString" /etc/skysqlmgr/api.ini
-	fi
-
-fi
 
 %install
 
