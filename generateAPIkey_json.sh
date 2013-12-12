@@ -24,17 +24,19 @@
 # Description    : Generates a new API ID/key pair
 #
 # parameters    : $1 API ID
+#		$2 install path
 # The code below also checks whether a key with the same ID exists
 # and, if it does, does not overwrite it.
 
 
-if [ $# -lt 1 ]; then
+if [ $# -lt 2 ]; then
 	echo "Component ID not provided. Please provide the component ID. Key not created."
 	exit 1
 fi
 
 
 componentID=$1
+install_path=$2
 
 # Reading key from components.ini
 componentFile=/usr/local/skysql/config/components.ini
@@ -43,5 +45,5 @@ uiKey=$(grep "^${componentID} = \"" ${componentFile} | cut -f3 -d" " | tr -d "\"
 # Creating manager.json file
 sed -e "s/###ID###/$componentID/" \
     -e "s/###CODE###/$uiKey/" \
-    %{install_path}config/manager.json.template \
-    > %{install_path}config/manager.json
+    ${install_path}config/manager.json.template \
+    > ${install_path}config/manager.json

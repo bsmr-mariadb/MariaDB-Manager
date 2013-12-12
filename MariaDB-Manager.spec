@@ -31,7 +31,7 @@ servers using the Galera multi-master replication form Codership.
 %post
 mkdir -p /usr/local/skysql/SQLite/AdminConsole
 chown -R apache:apache %{install_path}SQLite
-mkdir -p /usr/local/skysql/config
+# mkdir -p /usr/local/skysql/config
 
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 rm -f /etc/rc{2,3,4,5}.d/K*httpd*
@@ -41,21 +41,21 @@ chkconfig --add httpd
 cp generateAPIkey*.sh /usr/local/skysql/config/
 # WebUI key for the API
 /usr/local/skysql/config/generateAPIkey.sh 2
-/usr/local/skysql/config/generateAPIkey_json.sh 2
+/usr/local/skysql/config/generateAPIkey_json.sh 2 %{install_path}
 # Monitor key for the API
 /usr/local/skysql/config/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
 /etc/init.d/mariadb-enterprise-monitor restart
 
 # Cleanup
-/usr/local/skysql/config/generateAPIkey.sh 3
+rm -f /usr/local/skysql/config/generateAPIkey*.sh
 
 
 %install
 
 mkdir -p $RPM_BUILD_ROOT%{install_path}
-mkdir $RPM_BUILD_ROOT%{install_path}config
-mkdir $RPM_BUILD_ROOT%{install_path}skysql_aws/
+mkdir -p $RPM_BUILD_ROOT%{install_path}config
+mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
 cp manager.json $RPM_BUILD_ROOT%{install_path}config/manager.json.template
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
