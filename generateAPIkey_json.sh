@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Part of MariaDB Manager package
 #
