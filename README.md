@@ -11,3 +11,13 @@ MariaDB-Manager-API         A REST API layer that provides access to all the mon
 MariaDB-Manager-Monitor     A monitoring solution that collects data from MariaDB servers and feeds it into the MariaDB-Manger-API
 MariaDB-Manager-WebUI       A web based user interface based on the MariaDB-Manager-API
 MariaDB-Manager-GREX        A set of utilities that are installed on each node in the cluster to provide management functionality
+
+
+
+An Google Group exists for MariaDB-Manager that can be used to discuss ideas,
+issues and communicate with the MariaDB-Manager community.
+	[mariadbmanager@googlegroups.com]: mailto:mariadbmanager@googlegroups.com
+	
+Bugs can be reported in the SkySQL bugs database
+	[bug.skysql.com]: http://bugs.skysql.com
+
