@@ -29,25 +29,23 @@ servers using the Galera multi-master replication form Codership.
 %build
 
 %post
-mkdir -p /usr/local/skysql/SQLite/AdminConsole
-chown -R apache:apache %{install_path}SQLite
-# mkdir -p /usr/local/skysql/config
 
+# WebUI key for the API
+%{install_path}config/generateAPIkey.sh 1
+%{install_path}config/generateAPIkey_json.sh 1 %{install_path}
+# Monitor key for the API
+%{install_path}config/generateAPIkey.sh 3
+# Restart the Monitor so that it reads the new key
+/etc/init.d/mariadb-enterprise-monitor restart
+
+# setup httpd start and restart httpd 
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
 /etc/init.d/httpd restart
 
-# WebUI key for the API
-$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 1
-$RPM_BUILD_ROOT%{install_path}config/generateAPIkey_json.sh 1 %{install_path}
-# Monitor key for the API
-$RPM_BUILD_ROOT%{install_path}config/generateAPIkey.sh 3
-# Restart the Monitor so that it reads the new key
-/etc/init.d/mariadb-enterprise-monitor restart
-
 # Cleanup
-rm -f $RPM_BUILD_ROOT%{install_path}config/generateAPIkey*.sh
+rm -f %{install_path}config/generateAPIkey*.sh
 
 
 %install
