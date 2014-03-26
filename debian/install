@@ -1,0 +1,3 @@
+manager.json  usr/local/skysql/config/
+skysql.config  usr/local/skysql/skysql_aws/
+generateAPIkey*.sh  usr/local/skysql/config/
