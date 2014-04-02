@@ -8,8 +8,8 @@
 
 # setup httpd start and restart httpd
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
-rm -f /etc/rc{2,3,4,5}.d/K*httpd*
-chkconfig --add httpd
+#rm -f /etc/rc{2,3,4,5}.d/K*httpd*
+updaterc.d httpd defaults
 /etc/init.d/httpd restart
 
 # Cleanup
