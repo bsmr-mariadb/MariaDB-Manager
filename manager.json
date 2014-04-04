@@ -1,1 +1,1 @@
-{"api":{"uri":"http://localhost/consoleAPI/api", "keys":[{"id":"###ID###", "code":"###CODE###"}]}}
+{"api":{"uri":"http://localhost/restfulapi", "keys":[{"id":"###ID###", "code":"###CODE###"}]}}
