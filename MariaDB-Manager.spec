@@ -15,7 +15,7 @@ Release: 		%{release}
 Source: 		%{name}-%{version}-%{release}.tar.gz
 Prefix: 		/
 Group: 			Development/Tools
-Requires:		MariaDB-Manager-WebUI sqlite MariaDB-Manager-API MariaDB-Manager-Monitor tomcat7 = 7.0.39-1 gawk grep coreutils
+Requires:		MariaDB-Manager-WebUI sqlite MariaDB-Manager-API MariaDB-Manager-Monitor gawk grep coreutils
 #BuildRequires:		
 
 %description
@@ -39,6 +39,7 @@ servers using the Galera multi-master replication form Codership.
 /etc/init.d/mariadb-enterprise-monitor restart
 
 # setup httpd start and restart httpd 
+%{install_path}config/proxypass.sh
 sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 chkconfig --add httpd
@@ -46,6 +47,8 @@ chkconfig --add httpd
 
 # Cleanup
 rm -f %{install_path}config/generateAPIkey*.sh
+rm -f %{install_path}config/proxypass.sh
+rm -f %{install_path}config/libOS.sh
 
 
 %install
@@ -57,6 +60,8 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 cp generateAPIkey*.sh $RPM_BUILD_ROOT%{install_path}config/
+cp proxypass.sh $RPM_BUILD_ROOT%{install_path}config/
+cp libOS.sh $RPM_BUILD_ROOT%{install_path}config/
 
 %clean
 
@@ -65,5 +70,7 @@ cp generateAPIkey*.sh $RPM_BUILD_ROOT%{install_path}config/
 %{install_path}config/manager.json
 %{install_path}skysql_aws/skysql.config
 %{install_path}config/generateAPIkey*.sh
+%{install_path}config/proxypass.sh
+%{install_path}config/libOS.sh
 
 %changelog
