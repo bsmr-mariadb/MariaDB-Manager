@@ -28,5 +28,6 @@ getOsFamily () {
     elif [[ $(echo "$release_info" | grep 'Ubuntu') != "" || $(echo "$release_info" | grep 'Debian') ]]; then
         distro_type="debian"
     fi
+    echo "$distro_type"
 }
 export -f getOsFamily

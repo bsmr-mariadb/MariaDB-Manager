@@ -20,6 +20,10 @@
 # Date: April 2014
 
 
+. $(dirname $0)/libOS.sh
+osFamily=$(getOsFamily)
+
+
 if [[ -f /etc/tomcat6/server.xml ]] ; then
     tomcatConf="/etc/tomcat6/server.xml"
     tomcatService=tomcat6
@@ -47,13 +51,22 @@ EOF1
 
 
 # Apache for RH and derived
-apacheConf="/etc/httpd/conf.d/skysql_rewrite.conf"
-if ! grep -q "/MariaDBManager" $apacheConf ; then
-    cat >> $apacheConf <<EOF
+if [[ "x$osFamily" == "xredhat" ]] ; then
+    apacheConf="/etc/httpd/conf.d/skysql_rewrite.conf"
+    if ! grep -q "/MariaDBManager" $apacheConf ; then
+        cat >> $apacheConf <<EOF
 ProxyPass /MariaDBManager http://localhost:8081/MariaDBManager
 ProxyPassReverse /MariaDBManager http://localhost:8081/MariaDBManager
 EOF
-    service httpd restart
+        service httpd restart
+    fi
+elif [[ "x$osFamily" == "xdebian" ]] ; then
+    a2enmod rewrite 
+    a2enmod proxy_http
+    cp -p /etc/apache2/sites-available/default /etc/apache2/sites-available/default_bkp
+    cp -p /usr/local/skysql/config/debian_site_template /etc/apache2/sites-available/default
+    rm -f /usr/local/skysql/config/debian_site_template
+    service apache2 restart
 fi
 
 # Tomcat
