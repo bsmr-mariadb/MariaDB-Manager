@@ -1,6 +1,4 @@
 manager.json  usr/local/skysql/config/
 skysql.config  usr/local/skysql/skysql_aws/
 generateAPIkey*.sh  usr/local/skysql/config/
-libOS.sh usr/local/skysql/config/
-proxypass.sh usr/local/skysql/config/
 debian_site_template usr/local/skysql/config/
