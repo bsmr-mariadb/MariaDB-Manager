@@ -4,7 +4,7 @@
 # Monitor key for the API
 /usr/local/skysql/config/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
-/etc/init.d/mariadb-enterprise-monitor restart
+/etc/init.d/mariadb-manager-monitor restart
 
 # setup httpd start and restart httpd
 #sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
