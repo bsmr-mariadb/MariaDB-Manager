@@ -46,17 +46,19 @@ chkconfig --add httpd
 /etc/init.d/httpd restart
 
 # Cleanup
-rm -f %{install_path}config/generateAPIkey.sh
+rm -rf %{install_path}config/
 
 
 %install
 
 mkdir -p $RPM_BUILD_ROOT%{install_path}
-mkdir -p $RPM_BUILD_ROOT%{install_path}config
+mkdir -p $RPM_BUILD_ROOT%{install_path}config/
 mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
+mkdir -p $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 cp generateAPIkey.sh $RPM_BUILD_ROOT%{install_path}config/
+cp manager.ini $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 %clean
 
@@ -64,5 +66,6 @@ cp generateAPIkey.sh $RPM_BUILD_ROOT%{install_path}config/
 %defattr(-,root,root)
 %{install_path}skysql_aws/skysql.config
 %{install_path}config/generateAPIkey.sh
+/etc/mariadbmanager/manager.ini
 
 %changelog
