@@ -27,8 +27,7 @@
 	RewriteRule ^(/restfulapi/.*) /restfulapi/api.php [L]
 	RewriteRule ^(/consoleAPI/api/*) /restfulapi/api.php [L]
 
-	ProxyPass /MariaDBManager http://localhost:8081/MariaDBManager
-	ProxyPassReverse /MariaDBManager http://localhost:8081/MariaDBManager
+	ProxyPass /MariaDBManager ajp://localhost:8009/MariaDBManager
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
 

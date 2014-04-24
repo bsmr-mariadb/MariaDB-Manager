@@ -1,8 +1,9 @@
 # WebUI key for the API
-/usr/local/skysql/config/generateAPIkey.sh 1
-/usr/local/skysql/config/generateAPIkey_json.sh 1  /usr/local/skysql/
+/etc/mariadbmanager/generateAPIkey.sh 1
+# API scripts key for the API
+/etc/mariadbmanager/generateAPIkey.sh 2
 # Monitor key for the API
-/usr/local/skysql/config/generateAPIkey.sh 3
+/etc/mariadbmanager/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
 /etc/init.d/mariadb-manager-monitor restart
 
@@ -13,4 +14,4 @@ update-rc.d apache2 defaults
 /etc/init.d/apache2 restart
 
 # Cleanup
-rm -f /usr/local/skysql/config/generateAPIkey*.sh
+rm -f /etc/mariadbmanager/generateAPIkey.sh

@@ -28,11 +28,6 @@
 # and, if it does, does not overwrite it.
 
 
-warnMessage () {
-	echo "Key not created, maybe the API is not installed? Please update the file /etc/skysqlmgr/api.ini."
-	exit 1
-}
-
 if [ $# -lt 1 ]; then
 	echo "Component ID not provided. Please provide the component ID. Key not created."
 	exit 1
@@ -43,20 +38,11 @@ fi
 newKey=$(echo $RANDOM$(date)$RANDOM | md5sum | cut -f1 -d" ")
 
 componentID=$1
-
-# Registering key on components.ini
-componentFile=/usr/local/skysql/config/components.ini
+componentFile=/etc/mariadbmanager/manager.ini
 keyString="${componentID} = \"${newKey}\""
+
+# Registering key
 grep "^${componentID} = \"" ${componentFile} &>/dev/null
 if [ "$?" != "0" ] ; then
-	echo $keyString >> $componentFile
-fi
-
-# Registering key on api.ini
-grep "^${componentID} = \"" /etc/skysqlmgr/api.ini &>/dev/null
-if [ "$?" != "0" ] ; then
-	sed -i "/^\[apikeys\]$/a $keyString" /etc/skysqlmgr/api.ini
-	if [ "$?" != "0" ] ; then
-		warnMessage
-	fi
+	sed -i "/^\[apikeys\]/a $keyString" ${componentFile}
 fi

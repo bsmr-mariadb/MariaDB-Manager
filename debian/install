@@ -1,4 +1,3 @@
-manager.json  usr/local/skysql/config/
 skysql.config  usr/local/skysql/skysql_aws/
-generateAPIkey*.sh  usr/local/skysql/config/
-debian_site_template usr/local/skysql/config/
+generateAPIkey.sh  etc/mariadbmanager/
+debian_site_template etc/mariadbmanager/
