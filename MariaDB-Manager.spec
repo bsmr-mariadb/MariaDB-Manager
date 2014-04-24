@@ -32,7 +32,8 @@ servers using the Galera multi-master replication form Codership.
 
 # WebUI key for the API
 %{install_path}config/generateAPIkey.sh 1
-%{install_path}config/generateAPIkey_json.sh 1 %{install_path}
+# API scripts key for the API
+%{install_path}config/generateAPIkey.sh 2
 # Monitor key for the API
 %{install_path}config/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
@@ -45,7 +46,7 @@ chkconfig --add httpd
 /etc/init.d/httpd restart
 
 # Cleanup
-rm -f %{install_path}config/generateAPIkey*.sh
+rm -f %{install_path}config/generateAPIkey.sh
 
 
 %install
@@ -54,16 +55,14 @@ mkdir -p $RPM_BUILD_ROOT%{install_path}
 mkdir -p $RPM_BUILD_ROOT%{install_path}config
 mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 
-cp manager.json $RPM_BUILD_ROOT%{install_path}config/
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
-cp generateAPIkey*.sh $RPM_BUILD_ROOT%{install_path}config/
+cp generateAPIkey.sh $RPM_BUILD_ROOT%{install_path}config/
 
 %clean
 
 %files
 %defattr(-,root,root)
-%{install_path}config/manager.json
 %{install_path}skysql_aws/skysql.config
-%{install_path}config/generateAPIkey*.sh
+%{install_path}config/generateAPIkey.sh
 
 %changelog
