@@ -1,3 +1,4 @@
 skysql.config  usr/local/skysql/skysql_aws/
 generateAPIkey.sh  etc/mariadbmanager/
 debian_site_template etc/mariadbmanager/
+manager.ini etc/mariadbmanager/

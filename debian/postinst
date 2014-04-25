@@ -15,3 +15,4 @@ update-rc.d apache2 defaults
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
+rm -f /etc/mariadbmanager/debian_site_template
