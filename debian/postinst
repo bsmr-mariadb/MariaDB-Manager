@@ -11,7 +11,7 @@
 #sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
 #rm -f /etc/rc{2,3,4,5}.d/K*httpd*
 update-rc.d apache2 defaults
-/etc/init.d/apache2 restart
+apachectl -k graceful
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
