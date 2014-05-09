@@ -30,12 +30,14 @@ servers using the Galera multi-master replication form Codership.
 
 %post
 
+# Collect info from api.ini and manager.json, if present
+/etc/mariadbmanager/update_manager_ini.sh
 # WebUI key for the API
-%{install_path}config/generateAPIkey.sh 1
+/etc/mariadbmanager/generateAPIkey.sh 1
 # API scripts key for the API
-%{install_path}config/generateAPIkey.sh 2
+/etc/mariadbmanager/generateAPIkey.sh 2
 # Monitor key for the API
-%{install_path}config/generateAPIkey.sh 3
+/etc/mariadbmanager/generateAPIkey.sh 3
 # Restart the Monitor so that it reads the new key
 /etc/init.d/mariadb-manager-monitor restart
 
@@ -46,26 +48,28 @@ chkconfig --add httpd
 /etc/init.d/httpd restart
 
 # Cleanup
-rm -rf %{install_path}config/
+rm -f /etc/mariadbmanager/generateAPIkey.sh
+rm -f /etc/mariadbmanager/manager_template.ini
+rm -f /etc/mariadbmanager/update_manager_ini.sh
 
 
 %install
 
-mkdir -p $RPM_BUILD_ROOT%{install_path}
-mkdir -p $RPM_BUILD_ROOT%{install_path}config/
 mkdir -p $RPM_BUILD_ROOT%{install_path}skysql_aws/
 mkdir -p $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
-cp generateAPIkey.sh $RPM_BUILD_ROOT%{install_path}config/
-cp manager.ini $RPM_BUILD_ROOT/etc/mariadbmanager/
+cp generateAPIkey.sh $RPM_BUILD_ROOT/etc/mariadbmanager/
+cp manager.ini $RPM_BUILD_ROOT/etc/mariadbmanager/manager_template.ini
+cp update_manager_ini.sh $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 %clean
 
 %files
 %defattr(-,root,root)
 %{install_path}skysql_aws/skysql.config
-%{install_path}config/generateAPIkey.sh
-/etc/mariadbmanager/manager.ini
+/etc/mariadbmanager/generateAPIkey.sh
+/etc/mariadbmanager/manager_template.ini
+/etc/mariadbmanager/update_manager_ini.sh
 
 %changelog

@@ -1,3 +1,5 @@
+# Collect info from api.ini and manager.json, if present
+/etc/mariadbmanager/update_manager_ini.sh
 # WebUI key for the API
 /etc/mariadbmanager/generateAPIkey.sh 1
 # API scripts key for the API
@@ -15,4 +17,6 @@ apachectl -k graceful
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
+rm -f /etc/mariadbmanager/manager_template.ini
+rm -f /etc/mariadbmanager/update_manager_ini.sh
 rm -f /etc/mariadbmanager/debian_site_template
