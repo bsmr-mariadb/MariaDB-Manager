@@ -15,6 +15,9 @@
 update-rc.d apache2 defaults
 apachectl -k graceful
 
+# Upgrade the API
+php /var/www/restfulapi/api.php "UPGRADE"
+
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
 rm -f /etc/mariadbmanager/manager_template.ini
