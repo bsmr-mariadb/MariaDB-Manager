@@ -28,16 +28,20 @@ managerDotIni="/etc/mariadbmanager/manager.ini"
 managerDotJson="/usr/local/skysql/config/manager.json"
 
 # Already a manager.ini?
-[[ -d $(dirname $managerDotIni) && -f $managerDotIni ]] && \
-	echo "Found file $(basename $managerDotIni), no changes needed" && exit 0
+if [[ -d $(dirname $managerDotIni) && -f $managerDotIni ]] ; then
+	echo "Found file $(basename $managerDotIni), no changes needed"
+	exit 0
+fi
 # No api.ini or manager.json?
-[[ ! -d $(dirname $apiDotIni) || ! -f $apiDotIni ]] ; then
+if [[ ! -d $(dirname $apiDotIni) || ! -f $apiDotIni ]] ; then
 	echo "No $(basename $apiDotIni) found, default $(basename $managerDotIni) created"
 	mv $managerDotIniTemplate $managerDotIni
 	exit 0
 fi
-[[ ! -d $(dirname $managerDotJson) || ! -f $managerDotJson ]] && \
-	echo "No $(basename $managerDotJson) found, cannot update file $(basename $managerDotIni)" && exit 0
+if [[ ! -d $(dirname $managerDotJson) || ! -f $managerDotJson ]] ; then
+	echo "No $(basename $managerDotJson) found, cannot update file $(basename $managerDotIni)"
+	exit 0
+fi
 
 currentDir=$(pwd)
 cd $(dirname $0)
