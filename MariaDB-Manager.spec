@@ -60,7 +60,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 cp skysql.config $RPM_BUILD_ROOT%{install_path}skysql_aws/
 cp generateAPIkey.sh $RPM_BUILD_ROOT/etc/mariadbmanager/
-cp manager.ini $RPM_BUILD_ROOT/etc/mariadbmanager/manager_template.ini
+cp manager_template.ini $RPM_BUILD_ROOT/etc/mariadbmanager/
 cp update_manager_ini.sh $RPM_BUILD_ROOT/etc/mariadbmanager/
 
 %clean
