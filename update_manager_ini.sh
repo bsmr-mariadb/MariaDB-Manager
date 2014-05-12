@@ -31,10 +31,13 @@ managerDotJson="/usr/local/skysql/config/manager.json"
 [[ -d $(dirname $managerDotIni) && -f $managerDotIni ]] && \
 	echo "Found file $(basename $managerDotIni), no changes needed" && exit 0
 # No api.ini or manager.json?
-[[ ! -d $(dirname $apiDotIni) || ! -f $apiDotIni ]] && \
-	echo "No $(basename $apiDotIni) found, cannot create file $(basename $managerDotIni)" && exit 0
+[[ ! -d $(dirname $apiDotIni) || ! -f $apiDotIni ]] ; then
+	echo "No $(basename $apiDotIni) found, default $(basename $managerDotIni) created"
+	mv $managerDotIniTemplate $managerDotIni
+	exit 0
+fi
 [[ ! -d $(dirname $managerDotJson) || ! -f $managerDotJson ]] && \
-	echo "No $(basename $managerDotJson) found, cannot create file $(basename $managerDotIni)" && exit 0
+	echo "No $(basename $managerDotJson) found, cannot update file $(basename $managerDotIni)" && exit 0
 
 currentDir=$(pwd)
 cd $(dirname $0)
