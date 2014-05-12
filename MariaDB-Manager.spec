@@ -48,7 +48,7 @@ chkconfig --add httpd
 /etc/init.d/httpd restart
 
 # Upgrade the API
-php /var/www/restfulapi/api.php "UPGRADE"
+php /var/www/html/restfulapi/api.php "UPGRADE"
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
