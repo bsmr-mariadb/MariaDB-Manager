@@ -49,6 +49,7 @@ chkconfig --add httpd
 
 # Upgrade the API
 php /var/www/html/restfulapi/api.php "UPGRADE"
+chown -R apache:apache /usr/local/skysql/SQLite
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh

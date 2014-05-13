@@ -19,6 +19,7 @@ apachectl -k graceful
 
 # Upgrade the API
 php /var/www/restfulapi/api.php "UPGRADE"
+chown -R www-data:www-data /usr/local/skysql/SQLite
 
 # Cleanup
 rm -f /etc/mariadbmanager/generateAPIkey.sh
