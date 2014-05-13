@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Collect info from api.ini and manager.json, if present
 /etc/mariadbmanager/update_manager_ini.sh
 # WebUI key for the API
