@@ -11,9 +11,7 @@
 # Restart the Monitor so that it reads the new key
 /etc/init.d/mariadb-manager-monitor restart
 
-# setup httpd start and restart httpd
-#sed -i 's/# chkconfig: -/# chkconfig: 2345/' /etc/init.d/httpd
-#rm -f /etc/rc{2,3,4,5}.d/K*httpd*
+# setup apache web server
 update-rc.d apache2 defaults
 apachectl -k graceful
 
