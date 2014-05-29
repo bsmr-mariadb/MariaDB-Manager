@@ -47,7 +47,7 @@ currentDir=$(pwd)
 cd $(dirname $0)
 
 # Take lines 1 to 128 from the model manager.ini
-modelManager=$(head -n 128 $managerDotIniTemplate)
+modelManager=$(head -n 136 $managerDotIniTemplate)
 
 # The whole of the [apikeys] section from api.ini needs to be inserted.
 apikeysSection=$(sed -n '/^\[apikeys\]$/,/;/ {/^\[apikeys\]$/n;/;/!p}' $apiDotIni)
