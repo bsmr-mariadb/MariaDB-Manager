@@ -74,5 +74,14 @@ apiini4=$(sed '/^; The API keys section/,/^\d =/d' <<<"$apiini3")
 # Concatenate the result on to the material from manager.ini.
 echo "${manager}" > $managerDotIni
 echo "${apiini4}" >> $managerDotIni
+cat >> $managerDotIni <<EOF1
+;
+; The logging section controls how the API will log information to syslog.
+;
+; More information will be logged if the verbose option is set to yes
+; (or true, on, etc).
+[logging]
+verbose = no
+EOF1
 
 cd $currentDir
